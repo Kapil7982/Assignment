@@ -1,0 +1,5 @@
+package com.curd.services;
+
+public class ReviewServiceImpl {
+
+}

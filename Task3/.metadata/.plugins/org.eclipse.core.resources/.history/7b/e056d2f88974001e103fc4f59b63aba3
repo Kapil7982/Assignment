@@ -1,0 +1,41 @@
+package com.curd.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.curd.models.Product;
+import com.curd.models.Review;
+import com.curd.repositories.ProductRepository;
+import com.curd.repositories.ReviewRepository;
+
+@Service
+public class ReviewServiceImpl implements ReviewService{
+	
+	@Autowired
+    private ReviewRepository reviewRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+	@Override
+	public Review addReview(Long productId, Review review) {
+		
+		Product product = productRepository.findById(productId).orElse(null);
+
+        if (product == null) {
+            return null; // Handle product not found scenario
+        }
+
+        review.setProduct(product);
+        review.setCDate(LocalDateTime.now());
+        review.setUDate(LocalDateTime.now());
+        return reviewRepository.save(review);
+	}
+
+	@Override
+	public void deleteReview(Long productId, Long reviewId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

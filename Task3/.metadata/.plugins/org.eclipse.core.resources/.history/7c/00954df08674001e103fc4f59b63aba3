@@ -1,0 +1,5 @@
+package com.curd.models;
+
+public class Product {
+
+}

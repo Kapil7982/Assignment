@@ -1,0 +1,5 @@
+package com.curd.expections;
+
+public class ProductNotFoundException {
+
+}

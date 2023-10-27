@@ -1,0 +1,5 @@
+package com.curd.repositories;
+
+public interface ReviewRepository {
+
+}

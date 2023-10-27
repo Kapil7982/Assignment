@@ -1,0 +1,6 @@
+package com.curd.services;
+
+public interface ProductService {
+
+	public addProduct(Product product);
+}

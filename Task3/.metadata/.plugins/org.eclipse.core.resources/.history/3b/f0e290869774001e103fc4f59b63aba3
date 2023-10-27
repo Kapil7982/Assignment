@@ -1,0 +1,48 @@
+package com.curd.tests;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import com.curd.models.Product;
+import com.curd.repositories.ProductRepository;
+import com.curd.services.ProductService;
+
+@RunWith(MockitoJUnitRunner.class)
+public class ProductServiceTest {
+
+    @Mock
+    private ProductRepository productRepository;
+
+    @InjectMocks
+    private ProductService productService;
+
+    @Test
+    public void testGetProductById() {
+        // Create a sample product for testing
+        Product sampleProduct = new Product();
+        sampleProduct.setId(1L);
+        sampleProduct.setName("Sample Product");
+        sampleProduct.setPrice(19.99);
+
+        // Mock the behavior of the productRepository
+        (productRepository.findById(1L)).thenReturn(Optional.of(sampleProduct));
+
+        // Test getProductById
+        Product result = productService.getProductById(1L);
+
+        // Assertions
+        assertNotNull(result);
+        assertEquals(1L, result.getId().longValue());
+        assertEquals("Sample Product", result.getName());
+        assertEquals(19.99, result.getPrice(), 0.01);
+    }
+
+    // Write similar tests for other ProductService methods
+}

@@ -1,0 +1,52 @@
+package com.curd.services;
+
+import java.time.LocalDateTime;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Service;
+
+import com.curd.expections.ProductNotFoundException;
+import com.curd.expections.ReviewNotFoundException;
+import com.curd.models.Product;
+import com.curd.models.Review;
+import com.curd.repositories.ProductRepository;
+import com.curd.repositories.ReviewRepository;
+
+/**
+ * Service class for managing reviews.
+ */
+@Service
+public class ReviewServiceImpl implements ReviewService{
+	
+	@Autowired
+    private ReviewRepository reviewRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+	@Override
+	public Review addReview(Long productId, Review review) {
+		
+		Product product = productRepository.findById(productId).orElse(null);
+
+        if (product == null) {
+        	throw new ProductNotFoundException("Product with id " + productId + " not found");
+        }
+
+        review.setProduct(product);
+        review.setCDate(LocalDateTime.now());
+        review.setUDate(LocalDateTime.now());
+        return reviewRepository.save(review);
+	}
+
+	@Override
+	public void deleteReview(Long productId, Long reviewId) {
+        try {
+            reviewRepository.deleteById(reviewId);
+        } catch (EmptyResultDataAccessException e) {
+            // Handle the case when the review is not found
+            throw new ReviewNotFoundException("Review not found with id: " + reviewId);
+        }
+    }
+}
