@@ -1,17 +1,17 @@
-package com.green;
+package com.bookManagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
-import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.security.SecuritySchemes;
 import io.swagger.v3.oas.annotations.servers.Server;
 
 @SpringBootApplication
-@OpenAPIDefinition(info = @Info(title = "STUDENT API", version = "1.1"),
+@OpenAPIDefinition(info = @Info(title = "CUSTOMER API", version = "1.1"),
 security = {
 			@SecurityRequirement(name = "basicAuth"), 
 			@SecurityRequirement(name = "bearerToken")
@@ -24,10 +24,10 @@ servers = {
 @SecurityScheme(name = "basicAuth", type = SecuritySchemeType.HTTP, scheme = "basic"),
 @SecurityScheme(name = "bearerToken", type = SecuritySchemeType.HTTP, scheme = "bearer", bearerFormat = "JWT")
 })
-public class SpringSecurityWithJwtApplication {
+public class BookManagementApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringSecurityWithJwtApplication.class, args);
+		SpringApplication.run(BookManagementApplication.class, args);
 	}
 
 }
